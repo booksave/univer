@@ -127,6 +127,16 @@ function highlightTodayAndLesson(type) {
   }
 }
 
+function setThemeColor(color) {
+  let meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', color);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById('menu-btn');
   const menu = document.getElementById('menu');
@@ -159,40 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Смена темы
-  document.querySelectorAll('.theme-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic');
-      if (btn.dataset.theme !== 'default') {
-        document.body.classList.add('theme-' + btn.dataset.theme);
-      }
-      document.getElementById('settings-modal').classList.add('hidden');
-      localStorage.setItem('theme', btn.dataset.theme);
-    };
-  });
-
-  // Применение темы при загрузке
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme && savedTheme !== 'default') {
-    document.body.classList.add('theme-' + savedTheme);
-  }
-});
-
-
-// ...existing code...
-
-function setThemeColor(color) {
-  let meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) {
-    meta = document.createElement('meta');
-    meta.name = "theme-color";
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute('content', color);
-}
-
-// ...existing code...
-
-// В обработчиках смены темы:
 document.querySelectorAll('.theme-btn').forEach(btn => {
   btn.onclick = () => {
     document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic');
@@ -219,7 +195,7 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
   };
 });
 
-// При загрузке страницы:
+
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme && savedTheme !== 'default') {
   document.body.classList.add('theme-' + savedTheme);
@@ -239,8 +215,7 @@ if (savedTheme && savedTheme !== 'default') {
 } else {
   setThemeColor('#1e1e2f');
 }
-
-// ...existing code...
+});
 
 window.addEventListener("DOMContentLoaded", loadSchedule);
 
