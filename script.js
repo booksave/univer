@@ -177,6 +177,71 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
+// ...existing code...
+
+function setThemeColor(color) {
+  let meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', color);
+}
+
+// ...existing code...
+
+// В обработчиках смены темы:
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic');
+    if (btn.dataset.theme !== 'default') {
+      document.body.classList.add('theme-' + btn.dataset.theme);
+    }
+    document.getElementById('settings-modal').classList.add('hidden');
+    localStorage.setItem('theme', btn.dataset.theme);
+
+    // Устанавливаем цвет для status bar
+    switch (btn.dataset.theme) {
+      case 'cyberpunk':
+        setThemeColor('#0f2027');
+        break;
+      case 'christmas':
+        setThemeColor('#4e7c59');
+        break;
+      case 'minimalistic':
+        setThemeColor('#f7f7f7');
+        break;
+      default:
+        setThemeColor('#1e1e2f');
+    }
+  };
+});
+
+// При загрузке страницы:
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme && savedTheme !== 'default') {
+  document.body.classList.add('theme-' + savedTheme);
+  switch (savedTheme) {
+    case 'cyberpunk':
+      setThemeColor('#0f2027');
+      break;
+    case 'christmas':
+      setThemeColor('#4e7c59');
+      break;
+    case 'minimalistic':
+      setThemeColor('#f7f7f7');
+      break;
+    default:
+      setThemeColor('#1e1e2f');
+  }
+} else {
+  setThemeColor('#1e1e2f');
+}
+
+// ...existing code...
+
 window.addEventListener("DOMContentLoaded", loadSchedule);
 
 const CACHE_NAME = 'schedule-v1';
