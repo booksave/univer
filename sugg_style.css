@@ -26,6 +26,14 @@ main {
     padding: 2em;
 }
 
+/* Подвал */
+footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+}
+
 #suggestion-form {
     display: flex;
     flex-direction: column;

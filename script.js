@@ -249,7 +249,7 @@ async function loadSuggestions() {
       li.textContent += ' (Выполнено)';
     } else if (item.status === 'rejected') {
       li.style.color = 'red';
-      li.textContent += ' (Отклонено)';
+      li.textContent += ' (Отклонено❌)';
     }
 
     if (item.status === 'new') {
