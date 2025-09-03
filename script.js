@@ -65,8 +65,21 @@ function renderSchedule(type) {
     if (!lessons || lessons.length === 0 || Object.keys(lessons[0]).length === 0) {
       const li = document.createElement("li");
       li.className = "holiday";
-      li.innerHTML = "🎉 RELAX BRO 🎉";
+
+      for (let i = 0; i < 5; i++) {
+        const span = document.createElement("span");
+        span.className = "firework";
+        span.style.animationDelay = `${i * 0.3}s`;
+        li.appendChild(span);
+      }
+
+      const text = document.createElement("span");
+      text.className = "holiday-text";
+      text.textContent = "Выходной";
+      li.appendChild(text);
+
       ul.appendChild(li);
+
     } else {
       lessons.forEach(lesson => {
         const li = document.createElement("li");
@@ -161,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Смена темы
   document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.onclick = () => {
-      document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic');
+      document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic', 'theme-gold');
       if (btn.dataset.theme !== 'default') {
         document.body.classList.add('theme-' + btn.dataset.theme);
       }
@@ -169,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('theme', btn.dataset.theme);
     };
   });
+
 
   // Применение темы при загрузке
   const savedTheme = localStorage.getItem('theme');
@@ -203,4 +217,103 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(response => response || fetch(event.request))
   );
+});
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDJB6qoJtNLvBBPn7G7SwujL7uf0YHfnEs",
+  authDomain: "univer-fc0db.firebaseapp.com",
+  projectId: "univer-fc0db",
+  storageBucket: "univer-fc0db.appspot.com",
+  messagingSenderId: "191387845727",
+  appId: "1:191387845727:web:c3fd151e0a232cedb407ea",
+  measurementId: "G-5L7SY21MD2"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+
+
+async function loadSuggestions() {
+  const list = document.getElementById('suggestions-list');
+  list.innerHTML = '';
+  const snapshot = await db.collection('suggestions').get();
+  snapshot.forEach(doc => {
+    const item = doc.data();
+    const li = document.createElement('li');
+    li.textContent = item.text;
+
+    if (item.status === 'done') {
+      li.style.textDecoration = 'line-through';
+      li.style.color = 'green';
+      li.textContent += ' (Выполнено)';
+    } else if (item.status === 'rejected') {
+      li.style.color = 'red';
+      li.textContent += ' (Отклонено)';
+    }
+
+    if (item.status === 'new') {
+      const doneBtn = document.createElement('button');
+      doneBtn.textContent = 'Выполнено';
+      doneBtn.onclick = () => updateStatus(doc.id, 'done');
+
+      const rejectBtn = document.createElement('button');
+      rejectBtn.textContent = 'Отклонить';
+      rejectBtn.onclick = () => updateStatus(doc.id, 'rejected');
+
+      li.appendChild(doneBtn);
+      li.appendChild(rejectBtn);
+    }
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Удалить';
+    deleteBtn.onclick = () => deleteSuggestion(doc.id);
+    li.appendChild(deleteBtn);
+
+    list.appendChild(li);
+  });
+}
+
+async function updateStatus(id, status) {
+  await db.collection('suggestions').doc(id).update({ status });
+  loadSuggestions();
+}
+
+async function deleteSuggestion(id) {
+  await db.collection('suggestions').doc(id).delete();
+  loadSuggestions();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('suggestion-form');
+  const input = document.getElementById('suggestion-input');
+  const list = document.getElementById('suggestions-list');
+
+  if (form && input && list) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const value = input.value.trim();
+      if (value) {
+        await db.collection('suggestions').add({ text: value, status: 'new' });
+        input.value = '';
+        loadSuggestions();
+      }
+    });
+
+    loadSuggestions();
+  }
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const value = input.value.trim();
+  if (value.length < 1 || value.length > 500) {
+    alert('Текст предложения должен быть от 1 до 500 символов.');
+    return;
+  }
+  // Можно добавить фильтрацию от XSS
+  const safeValue = value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  await db.collection('suggestions').add({ text: safeValue, status: 'new' });
+  input.value = '';
+  loadSuggestions();
 });

@@ -98,7 +98,7 @@ h2 {
 }
 
 .day li:hover {
-  background: #3c3c55;
+  background: #3a2668;
 }
 
 @keyframes fadeInUp {
@@ -150,14 +150,9 @@ footer {
 
 /* Подсветка текущего урока */
 .current-lesson {
-  background: linear-gradient(135deg, #7b2ff7, #f107a3);
-  color: #78a1ee;
+  background: #3a2668;
   font-weight: bold;
   border-radius: 8px;
-  padding: 6px 10px;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 15px rgba(123, 47, 247, 0.6);
-  animation: glow 2s infinite alternate;
 }
 
 /* Мягкое свечение */
@@ -191,6 +186,7 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: 42px;
+  min-height: 200px;
   font-weight: bold;
   font-family: 'Press Start 2P', 'Courier New', monospace;
   color: #ffcc00;
@@ -203,7 +199,7 @@ footer {
   overflow: hidden;
 }
 
-/* Фейерверк-искра */
+/* Фейерверк-искра 
 .holiday::before,
 .holiday::after {
   content: "✨";
@@ -211,7 +207,7 @@ footer {
   font-size: 28px;
   color: #fff;
   animation: sparkle 1.5s infinite;
-}
+}*/
 
 .holiday::before {
   top: -10px;
@@ -393,6 +389,12 @@ header {
   text-align: center;
 }
 
+.modal-content a {
+  color: #4da6ff;
+  text-decoration: none;
+}
+
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -407,6 +409,9 @@ header {
   flex-direction: column;
   gap: 12px;
   margin-top: 18px;
+}
+.modal-content hr {
+  margin-top: 12px;
 }
 
 .theme-btn {
@@ -458,7 +463,7 @@ body.theme-cyberpunk #week-type {
 }
 
 body.theme-cyberpunk .header-left h1 {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 body.theme-cyberpunk .header-right {
@@ -570,13 +575,11 @@ body.theme-cyberpunk .day li:hover {
 }
 
 body.theme-cyberpunk .current-lesson {
-  background: linear-gradient(135deg, #ff00cc 40%, #00fff7 100%);
   color: #fff;
   font-weight: bold;
   border: 2px solid #ff00cc;
   border-radius: 12px;
   box-shadow: 0 0 24px #ff00cc, 0 0 32px #00fff7, 0 0 40px #ff00cc;
-  animation: pulseNeon 1.5s infinite alternate;
   text-shadow: 0 0 12px #fff, 0 0 24px #00fff7;
 }
 
@@ -599,11 +602,6 @@ body.theme-christmas {
   transition: all 0.3s;
   position: relative;
   overflow-x: hidden;
-}
-
-/* Убрать снег и снежинки */
-body.theme-christmas::before {
-  display: none !important;
 }
 
 body.theme-christmas header {
@@ -787,14 +785,9 @@ body.theme-christmas .day li:hover {
 }
 
 body.theme-christmas .current-lesson {
-  background: linear-gradient(135deg, #ffd600 60%, #388e3c 100%);
+  background: #ffe082;
   color: #c62828;
-  font-weight: bold;
-  border: 2px solid #c62828;
-  border-radius: 12px;
-  box-shadow: 0 0 16px #ffd600, 0 0 12px #388e3c;
-  animation: pulseXmas 2s infinite alternate;
-  text-shadow: 0 0 8px #fff;
+  box-shadow: 0 0 8px #ffd600;
 }
 
 @keyframes pulseXmas {
@@ -950,12 +943,319 @@ body.theme-minimalistic .day li:hover {
 }
 
 body.theme-minimalistic .current-lesson {
-  background: #1976d2;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-left: 3px solid #232323;
+}
+
+
+body.theme-gold {
+  background: #000 ;
+  color: #fff ;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+header.theme-gold,
+footer.theme-gold {
+  background: #1a1a1a ;
   color: #fff;
+  border-bottom: 4px solid #ffd800;
+  box-shadow: 0 2px 12px #ffd80033;
+}
+
+header.theme-gold h1 {
+  color: #ffd800;
+  font-weight: 700;
+  text-shadow: 0 0 8px #ffd80099;
+}
+
+.theme-gold .header-left h1 {
+  font-size: 1.3em;
+}
+
+.theme-gold .header-right {
+  color: #ffd800;
+}
+
+.theme-gold #menu-btn .burger {
+  background: #ffd800;
+  box-shadow: 0 0 8px #ffd80099;
+}
+
+.theme-gold #menu {
+  background: #1a1a1a;
+  border: 2px solid #ffd800;
+  box-shadow: 0 0 16px #ffd80055;
+}
+
+.theme-gold #menu a {
+  color: #ffd800;
   font-weight: bold;
-  border: 1.5px solid #232323;
-  border-radius: 8px;
-  box-shadow: none;
-  animation: none;
-  text-shadow: none;
+  font-size: 1.1em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.theme-gold #menu a:hover {
+  background: #ffd800;
+  color: #000;
+}
+
+.theme-gold .buttons button,
+.theme-gold .theme-btn {
+  background: #ffd800;
+  color: #000;
+  border: 2px solid #ffd800;
+  font-weight: bold;
+  font-size: 1.08em;
+  box-shadow: 0 2px 8px #ffd80044;
+  transition: background 0.2s, color 0.2s;
+}
+
+.theme-gold .buttons button:hover,
+.theme-gold .theme-btn:hover {
+  background: #fff;
+  color: #000;
+  border: 2px solid #ffd800;
+}
+
+.theme-gold .modal-content {
+  background: #111;
+  color: #ffd800;
+  border: 2px solid #ffd800;
+  box-shadow: 0 0 24px #ffd80033;
+}
+
+.theme-gold .modal-link {
+  color: #ffd800;
+  text-decoration: underline;
+}
+
+.theme-gold .close-btn {
+  color: #ffd800;
+  font-size: 2em;
+  transition: color 0.2s;
+}
+
+.theme-gold .close-btn:hover {
+  color: #fff;
+}
+
+.theme-gold hr {
+  border-color: #ffd800;
+}
+
+.theme-gold a {
+  color: #ffd800;
+}
+
+.theme-gold .day {
+  background: #111;
+  color: #fff;
+  border-top: 2px solid #ffd800;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  box-shadow: 0 2px 12px #ffd80022;
+  transition: background 0.2s, border 0.2s;
+}
+
+.theme-gold .day h3 {
+  color: #ffd800;
+  font-size: 1.15em;
+  font-weight: 600;
+  text-shadow: 0 0 8px #ffd80099;
+}
+
+.theme-gold .today {
+  color: #000;
+  border: 2px solid #fff;
+  box-shadow: 0 0 16px #ffd80099;
+}
+
+.theme-gold .day li {
+  background: #222;
+  color: #ffd800;
+  border-left: 6px solid #ffd800;
+  margin-bottom: 10px;
+  font-size: 1.08em;
+  box-shadow: 0 1px 8px #ffd80022;
+  transition: background 0.2s, color 0.2s;
+}
+
+.theme-gold .day li:hover {
+  background: #a7942a;
+  color: #000;
+}
+
+.theme-gold .current-lesson {
+  color: #ffffff;
+  border: 2px solid #fff;
+  box-shadow: 0 0 16px #ffd80099;
+}
+
+.theme-gold .holiday {
+  background: #000;
+  color: #ffd800;
+  font-weight: bold;
+  border: none;
+  text-shadow: 0 0 12px #ffd80099;
+}
+
+@media (max-width: 600px) {
+  .theme-gold .day {
+    margin-bottom: 10px;
+  }
+
+  .theme-gold .day h3 {
+    font-size: 1em;
+  }
+
+  .theme-gold .day li {
+    font-size: 1em;
+  }
+}
+
+@keyframes firework {
+  0% { transform: translate(var(--x), var(--initialY)); width: var(--initialSize); opacity: 1; }
+  50% { width: 0.5vmin; opacity: 1; }
+  100% { width: var(--finalSize); opacity: 0; }
+}
+
+/* @keyframes fireworkPseudo {
+  0% { transform: translate(-50%, -50%); width: var(--initialSize); opacity: 1; }
+  50% { width: 0.5vmin; opacity: 1; }
+  100% { width: var(--finalSize); opacity: 0; }
+}
+ */
+.firework,
+.firework::before,
+.firework::after
+{
+  --initialSize: 0.5vmin;
+  --finalSize: 45vmin;
+  --particleSize: 0.2vmin;
+  --color1: yellow;
+  --color2: khaki;
+  --color3: white;
+  --color4: lime;
+  --color5: gold;
+  --color6: mediumseagreen;
+  --y: -30vmin;
+  --x: -50%;
+  --initialY: 60vmin;
+  content: "";
+  animation: firework 2s infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, var(--y));
+  width: var(--initialSize);
+  aspect-ratio: 1;
+  background: 
+    /*
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 0%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 0%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 100%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
+    */
+    
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 50% 0%,
+    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 50%,
+    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 50% 100%,
+    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 0% 50%,
+    
+    /* bottom right */
+    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 80% 90%,
+    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 95% 90%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 90% 70%,
+    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 60%,
+    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 55% 80%,
+    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 70% 77%,
+    
+    /* bottom left */
+    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 22% 90%,
+    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 45% 90%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 70%,
+    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 10% 60%,
+    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 31% 80%,
+    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 28% 77%,
+    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 13% 72%,
+    
+    /* top left */
+    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 80% 10%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 95% 14%,
+    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 90% 23%,
+    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 100% 43%,
+    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 85% 27%,
+    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 77% 37%,
+    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 60% 7%,
+    
+    /* top right */
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 22% 14%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 45% 20%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 34%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 10% 29%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 31% 37%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 28% 7%,
+    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 13% 42%
+    ;
+  background-size: var(--initialSize) var(--initialSize);
+  background-repeat: no-repeat;
+}
+
+.firework::before {
+  --x: -50%;
+  --y: -50%;
+  --initialY: -50%;
+/*   transform: translate(-20vmin, -2vmin) rotate(40deg) scale(1.3) rotateY(40deg); */
+  transform: translate(-50%, -50%) rotate(40deg) scale(1.3) rotateY(40deg);
+/*   animation: fireworkPseudo 2s infinite; */
+}
+
+.firework::after {
+  --x: -50%;
+  --y: -50%;
+  --initialY: -50%;
+/*   transform: translate(44vmin, -50%) rotate(170deg) scale(1.15) rotateY(-30deg); */
+  transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
+/*   animation: fireworkPseudo 2s infinite; */
+}
+
+.firework:nth-child(2) {
+  --x: 30vmin;
+}
+
+.firework:nth-child(2),
+.firework:nth-child(2)::before,
+.firework:nth-child(2)::after {
+  --color1: pink;
+  --color2: violet;
+  --color3: fuchsia;
+  --color4: orchid;
+  --color5: plum;
+  --color6: lavender;  
+  --finalSize: 40vmin;
+  left: 30%;
+  top: 60%;
+  animation-delay: -0.25s;
+}
+
+.firework:nth-child(3) {
+  --x: -30vmin;
+  --y: -50vmin;
+}
+
+.firework:nth-child(3),
+.firework:nth-child(3)::before,
+.firework:nth-child(3)::after {
+  --color1: cyan;
+  --color2: lightcyan;
+  --color3: lightblue;
+  --color4: PaleTurquoise;
+  --color5: SkyBlue;
+  --color6: lavender;
+  --finalSize: 35vmin;
+  left: 70%;
+  top: 60%;
+  animation-delay: -0.4s;
 }
