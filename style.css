@@ -1493,3 +1493,7 @@ body.theme-gold .file-link:hover {
 .group-option input[type="radio"] {
   cursor: pointer;
 }
+
+#menu li {
+  border-top: 1px #000 solid;
+}
