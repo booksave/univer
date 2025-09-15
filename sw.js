@@ -1,8 +1,7 @@
-const CACHE_NAME = 'schedule-v2'; // Обновил версию кэша
+const CACHE_NAME = 'schedule-v3'; // Обновил версию кэша
 const urlsToCache = [
   '/',
   '/index.html',
-  '/suggestions.html', // Добавил страницу предложений
   '/style.css',
   '/script.js',
   '/schedule.json',
