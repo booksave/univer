@@ -5,10 +5,9 @@ const urlsToCache = [
   '/style.css',
   '/script.js',
   '/schedule.json',
-  '/schedule2.json', // Добавляем второе расписание в кэш
+  '/schedule2.json', 
   '/public/umkd.json',
   '/images/icons/icon-192x192.png'
-  // Добавьте сюда другие важные файлы, если они есть
 ];
 
 self.addEventListener('install', event => {
