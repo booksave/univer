@@ -1,4 +1,3 @@
-/* Сброс */
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +7,6 @@
 body {
   font-family: Arial, sans-serif;
   background: #1e1e2f;
-  /* мягкий тёмно-серый фон */
   color: #e0e0e0;
   line-height: 1.6;
   padding: 20px;
@@ -17,7 +15,6 @@ body {
   flex-direction: column;
 }
 
-/* Шапка */
 header {
   text-align: center;
   margin-bottom: 20px;
@@ -35,7 +32,6 @@ h1 {
   text-align: center;
 }
 
-/* Кнопки */
 .buttons {
   display: flex;
   justify-content: center;
@@ -63,7 +59,6 @@ button:active {
   transform: scale(0.95);
 }
 
-/* Секция расписания */
 h2 {
   font-size: 1.4rem;
   margin-bottom: 15px;
@@ -108,7 +103,6 @@ h2 {
   }
 }
 
-/* Подвал */
 footer {
   margin-top: auto;
   text-align: center;
@@ -116,7 +110,6 @@ footer {
   color: #888;
 }
 
-/* Адаптив */
 @media (max-width: 600px) {
   body {
     padding: 10px;
@@ -135,7 +128,6 @@ footer {
   }
 }
 
-/* Подсветка текущего дня */
 .day.today {
   border: 2px solid #4da6ff;
   background: rgba(77, 166, 255, 0.05);
@@ -143,19 +135,16 @@ footer {
   box-shadow: 0 0 12px rgba(77, 166, 255, 0.2);
   transition: all 0.3s ease;
 
-  /* Новый отступ */
   padding: 15px;
 }
 
 
-/* Подсветка текущего урока */
 .day li.current-lesson {
   background: #3a2668;
   font-weight: bold;
   border-radius: 8px;
 }
 
-/* Мягкое свечение */
 @keyframes glow {
   from {
     box-shadow: 0 0 10px rgba(123, 47, 247, 0.5);
@@ -166,20 +155,17 @@ footer {
   }
 }
 
-/* Базовый стиль (для телефона и планшета) */
 #schedule-container {
   padding: 10px;
+  margin-bottom: 50px;
 }
 
-/* Для ПК (экран шире 1024px) */
 @media (min-width: 1024px) {
   #schedule-container {
     padding: 60px 220px;
-    /* сверху/снизу 30px, слева/справа 60px */
   }
 }
 
-/* Фон для выходного */
 .holiday {
   position: relative;
   display: flex;
@@ -219,7 +205,6 @@ footer {
   right: 25%;
 }
 
-/* Для телефона */
 @media (min-width: 200px) {
   .holiday {
     font-size: 22px;
@@ -227,7 +212,6 @@ footer {
   }
 }
 
-/* Для ПК */
 @media (min-width: 1024px) {
   .holiday {
     font-size: 40px;
@@ -235,7 +219,6 @@ footer {
   }
 }
 
-/* Сияние текста */
 @keyframes holidayGlow {
   from {
     text-shadow: 0 0 5px #ff0, 0 0 15px #ff6600, 0 0 30px #ff0066;
@@ -246,7 +229,6 @@ footer {
   }
 }
 
-/* Анимация искорок */
 @keyframes sparkle {
   0% {
     transform: scale(0.8) rotate(0deg);
@@ -410,6 +392,7 @@ header {
   gap: 12px;
   margin-top: 18px;
 }
+
 .modal-content hr {
   margin-top: 12px;
 }
@@ -494,25 +477,8 @@ body.theme-cyberpunk #menu a:hover {
   text-shadow: 0 0 12px #ff00cc;
 }
 
-body.theme-cyberpunk .buttons button,
-body.theme-cyberpunk .theme-btn {
-  background: linear-gradient(90deg, #ff00cc 0%, #00fff7 100%);
-  color: #fff;
-  border: 2px solid #00fff7;
-  box-shadow: 0 0 8px #ff00cc, 0 0 4px #00fff7;
-  text-shadow: 0 0 8px #fff;
-  font-family: 'Orbitron', Arial, sans-serif;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-}
 
-body.theme-cyberpunk .buttons button:hover,
-body.theme-cyberpunk .theme-btn:hover {
-  background: linear-gradient(90deg, #00fff7 0%, #ff00cc 100%);
-  color: #ff00cc;
-  box-shadow: 0 0 16px #00fff7, 0 0 8px #ff00cc;
-}
+
 
 body.theme-cyberpunk .modal-content {
   background: rgba(15, 12, 41, 0.98);
@@ -593,6 +559,45 @@ body.theme-cyberpunk .day li.current-lesson {
   }
 }
 
+/* --- Киберпанк: Стили для навигации и УМКД --- */
+body.theme-cyberpunk .bottom-nav {
+  background: rgba(15, 12, 41, 0.98);
+  border-top: 2px solid #ff00cc;
+  box-shadow: 0 0 24px #00fff7, 0 0 4px #ff00cc;
+}
+
+body.theme-cyberpunk .nav-item {
+  color: #00fff7;
+  text-shadow: 0 0 6px #00fff7;
+  font-family: 'Orbitron', Arial, sans-serif;
+  transition: all 0.2s;
+}
+
+body.theme-cyberpunk .nav-item.active {
+  background: #ff00cc;
+  color: #fff;
+  text-shadow: 0 0 12px #fff;
+  border-top: 3px solid #00fff7;
+}
+
+body.theme-cyberpunk .subject-card {
+  background: rgba(26, 0, 51, 0.85);
+  border: 2px solid #00fff7;
+  box-shadow: 0 0 18px #00fff7, 0 0 8px #ff00cc;
+}
+
+body.theme-cyberpunk .subject-card h3 {
+  color: #ff00cc;
+}
+
+body.theme-cyberpunk .file-link {
+  color: #00fff7;
+}
+
+body.theme-cyberpunk .file-link:hover {
+  color: #fff;
+}
+
 
 /* --- Рождественская тема: гирлянда на границах дней --- */
 body.theme-christmas {
@@ -671,24 +676,8 @@ body.theme-christmas #menu a:hover {
   color: #fff;
 }
 
-body.theme-christmas .buttons button,
-body.theme-christmas .theme-btn {
-  background: linear-gradient(90deg, #c62828 0%, #ffd600 100%);
-  color: #fff;
-  border: 2px solid #388e3c;
-  box-shadow: 0 0 4px #ffd600;
-  font-family: inherit;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-}
 
-body.theme-christmas .buttons button:hover,
-body.theme-christmas .theme-btn:hover {
-  background: linear-gradient(90deg, #388e3c 0%, #ffd600 100%);
-  color: #fff;
-  box-shadow: 0 0 8px #388e3c;
-}
+
 
 body.theme-christmas .modal-content {
   background: #fff8e1;
@@ -800,6 +789,41 @@ body.theme-christmas .day li.current-lesson {
   }
 }
 
+/* --- Рождество: Стили для навигации и УМКД --- */
+body.theme-christmas .bottom-nav {
+  background: #4e7c59;
+  border-top: 4px solid #c62828;
+  box-shadow: 0 -2px 16px #b2dfdb;
+}
+
+body.theme-christmas .nav-item {
+  color: #fff8e1;
+}
+
+body.theme-christmas .nav-item.active {
+  color: #fff;
+  background: #c62828;
+  border-top: 3px solid #ffd600;
+}
+
+body.theme-christmas .subject-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #388e3c;
+  color: #3e2723;
+}
+
+body.theme-christmas .subject-card h3 {
+  color: #c62828;
+}
+
+body.theme-christmas .file-link {
+  color: #388e3c;
+}
+
+body.theme-christmas .file-link:hover {
+  color: #c62828;
+}
+
 /* === Минималистичная тема === */
 body.theme-minimalistic {
   background: #f7f7f7;
@@ -860,24 +884,7 @@ body.theme-minimalistic #menu a:hover {
   color: #1976d2;
 }
 
-body.theme-minimalistic .buttons button,
-body.theme-minimalistic .theme-btn {
-  background: #fff;
-  color: #232323;
-  border: 1px solid #e0e0e0;
-  box-shadow: none;
-  font-family: inherit;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: background 0.2s, color 0.2s, border 0.2s;
-}
 
-body.theme-minimalistic .buttons button:hover,
-body.theme-minimalistic .theme-btn:hover {
-  background: #1976d2;
-  color: #fff;
-  border: 1px solid #1976d2;
-}
 
 body.theme-minimalistic .modal-content {
   background: #fff;
@@ -948,17 +955,54 @@ body.theme-minimalistic .day li.current-lesson {
   border-left: 3px solid #232323;
 }
 
+/* --- Минимализм: Стили для навигации и УМКД --- */
+body.theme-minimalistic .bottom-nav {
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.04);
+}
+
+body.theme-minimalistic .nav-item {
+  color: #757575;
+  font-weight: 500;
+}
+
+body.theme-minimalistic .nav-item.active {
+  color: #1976d2;
+  background: #f7f7f7;
+  border-top: 3px solid #1976d2;
+}
+
+body.theme-minimalistic .subject-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+}
+
+body.theme-minimalistic .subject-card h3 {
+  color: #1976d2;
+}
+
+body.theme-minimalistic .file-link {
+  color: #1976d2;
+}
+
+body.theme-minimalistic .file-link:hover {
+  color: #232323;
+}
+
+/* GOLD */
 
 body.theme-gold {
-  background: #000 ;
-  color: #fff ;
+  background: #000;
+  color: #fff;
   font-family: 'Segoe UI', 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
 
 header.theme-gold,
 footer.theme-gold {
-  background: #1a1a1a ;
+  background: #1a1a1a;
   color: #fff;
   border-bottom: 4px solid #ffd800;
   box-shadow: 0 2px 12px #ffd80033;
@@ -1001,23 +1045,7 @@ header.theme-gold h1 {
   color: #000;
 }
 
-.theme-gold .buttons button,
-.theme-gold .theme-btn {
-  background: #ffd800;
-  color: #000;
-  border: 2px solid #ffd800;
-  font-weight: bold;
-  font-size: 1.08em;
-  box-shadow: 0 2px 8px #ffd80044;
-  transition: background 0.2s, color 0.2s;
-}
 
-.theme-gold .buttons button:hover,
-.theme-gold .theme-btn:hover {
-  background: #fff;
-  color: #000;
-  border: 2px solid #ffd800;
-}
 
 .theme-gold .modal-content {
   background: #111;
@@ -1082,11 +1110,6 @@ header.theme-gold h1 {
   transition: background 0.2s, color 0.2s;
 }
 
-/*.theme-gold .day li:hover {
-  background: #a7942a;
-  color: #000;
-} */
-
 .theme-gold .day li.current-lesson {
   border: 2px solid #fff;
   box-shadow: 0 0 16px #ffd80099;
@@ -1115,414 +1138,23 @@ header.theme-gold h1 {
 }
 
 @keyframes firework {
-  0% { transform: translate(var(--x), var(--initialY)); width: var(--initialSize); opacity: 1; }
-  50% { width: 0.5vmin; opacity: 1; }
-  100% { width: var(--finalSize); opacity: 0; }
-}
+  0% {
+    transform: translate(var(--x), var(--initialY));
+    width: var(--initialSize);
+    opacity: 1;
+  }
 
-/* @keyframes fireworkPseudo {
-  0% { transform: translate(-50%, -50%); width: var(--initialSize); opacity: 1; }
-  50% { width: 0.5vmin; opacity: 1; }
-  100% { width: var(--finalSize); opacity: 0; }
-}
- */
-.firework,
-.firework::before,
-.firework::after
-{
-  --initialSize: 0.5vmin;
-  --finalSize: 45vmin;
-  --particleSize: 0.2vmin;
-  --color1: yellow;
-  --color2: khaki;
-  --color3: white;
-  --color4: lime;
-  --color5: gold;
-  --color6: mediumseagreen;
-  --y: -30vmin;
-  --x: -50%;
-  --initialY: 60vmin;
-  content: "";
-  animation: firework 2s infinite;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, var(--y));
-  width: var(--initialSize);
-  aspect-ratio: 1;
-  background: 
-    /*
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 0%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 0%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 100%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
-    */
-    
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 50% 0%,
-    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 50%,
-    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 50% 100%,
-    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 0% 50%,
-    
-    /* bottom right */
-    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 80% 90%,
-    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 95% 90%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 90% 70%,
-    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 60%,
-    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 55% 80%,
-    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 70% 77%,
-    
-    /* bottom left */
-    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 22% 90%,
-    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 45% 90%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 70%,
-    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 10% 60%,
-    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 31% 80%,
-    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 28% 77%,
-    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 13% 72%,
-    
-    /* top left */
-    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 80% 10%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 95% 14%,
-    radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 90% 23%,
-    radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 100% 43%,
-    radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 85% 27%,
-    radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 77% 37%,
-    radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 60% 7%,
-    
-    /* top right */
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 22% 14%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 45% 20%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 34%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 10% 29%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 31% 37%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 28% 7%,
-    radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 13% 42%
-    ;
-  background-size: var(--initialSize) var(--initialSize);
-  background-repeat: no-repeat;
-}
+  50% {
+    width: 0.5vmin;
+    opacity: 1;
+  }
 
-.firework::before {
-  --x: -50%;
-  --y: -50%;
-  --initialY: -50%;
-/*   transform: translate(-20vmin, -2vmin) rotate(40deg) scale(1.3) rotateY(40deg); */
-  transform: translate(-50%, -50%) rotate(40deg) scale(1.3) rotateY(40deg);
-/*   animation: fireworkPseudo 2s infinite; */
-}
-
-.firework::after {
-  --x: -50%;
-  --y: -50%;
-  --initialY: -50%;
-/*   transform: translate(44vmin, -50%) rotate(170deg) scale(1.15) rotateY(-30deg); */
-  transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
-/*   animation: fireworkPseudo 2s infinite; */
-}
-
-.firework:nth-child(2) {
-  --x: 30vmin;
-}
-
-.firework:nth-child(2),
-.firework:nth-child(2)::before,
-.firework:nth-child(2)::after {
-  --color1: pink;
-  --color2: violet;
-  --color3: fuchsia;
-  --color4: orchid;
-  --color5: plum;
-  --color6: lavender;  
-  --finalSize: 40vmin;
-  left: 30%;
-  top: 60%;
-  animation-delay: -0.25s;
-}
-
-.firework:nth-child(3) {
-  --x: -30vmin;
-  --y: -50vmin;
-}
-
-.firework:nth-child(3),
-.firework:nth-child(3)::before,
-.firework:nth-child(3)::after {
-  --color1: cyan;
-  --color2: lightcyan;
-  --color3: lightblue;
-  --color4: PaleTurquoise;
-  --color5: SkyBlue;
-  --color6: lavender;
-  --finalSize: 35vmin;
-  left: 70%;
-  top: 60%;
-  animation-delay: -0.4s;
-}
-/* =============================================================== */
-/* --- Стили для навигации и вкладок (добавленный код) --- */
-/* =============================================================== */
-
-/* Правило, которое скрывает неактивную секцию контента */
-.content-section.hidden {
-  display: none;
-}
-
-/* Стили для самой панели навигации. 
-  'position: fixed' прикрепляет ее к низу экрана.
-*/
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  background: #2b2b3d; /* Цвет фона под ваш основной дизайн */
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000; /* Чтобы навигация была поверх всего */
-  padding-bottom: env(safe-area-inset-bottom); /* Отступ для iPhone */
-}
-
-/* Стили для каждой кнопки в панели навигации.
-  'flex: 1' заставляет их занять все доступное пространство поровну.
-*/
-.nav-item {
-  flex: 1;
-  text-align: center;
-  padding: 15px 5px;
-  cursor: pointer;
-  color: #a0a0b0; /* Цвет неактивной иконки */
-  transition: background 0.2s, color 0.2s;
-  font-size: 0.9rem; /* Немного уменьшим шрифт */
-}
-
-/* Эффект при наведении мыши */
-.nav-item:hover {
-  background: #3a3a50;
-}
-
-/* Стиль для активной (выбранной) кнопки */
-.nav-item.active {
-  color: #fff; /* Яркий белый цвет для текста */
-  font-weight: bold;
-  border-top: 3px solid #4da6ff; /* Синяя полоска сверху, как индикатор */
-  background: #3a3a50; /* Немного другой фон для выделения */
-}
-
-
-/* =============================================================== */
-/* --- Стили для оформления новой секции "УМКД" --- */
-/* =============================================================== */
-
-/* Основной контейнер для УМКД, чтобы были отступы */
-#umkd-container {
-  padding: 10px;
-  /* Добавляем отступ снизу, чтобы контент не перекрывался навигацией */
-  padding-bottom: 80px; 
-}
-
-/* Отступы для большого экрана, как у расписания */
-@media (min-width: 1024px) {
-  #umkd-container {
-     padding: 60px 220px;
-     padding-bottom: 80px;
+  100% {
+    width: var(--finalSize);
+    opacity: 0;
   }
 }
 
-/* Карточка для каждого отдельного предмета */
-.subject-card {
-  background: #2b2b3d;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Заголовок с названием предмета */
-.subject-card h3 {
-  margin-bottom: 12px;
-  color: #d0d0d0;
-  border-bottom: 1px solid #444;
-  padding-bottom: 8px;
-}
-
-/* Убираем стандартные маркеры у списка файлов */
-.subject-card ul {
-  list-style: none;
-}
-
-/* Ссылка на файл */
-.file-link {
-  display: block;
-  padding: 8px 0;
-  color: #4da6ff;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.file-link:hover {
-  color: #8ac6ff;
-}
-
-
-/* --- Стили для нового интерфейса УМКД --- */
-
-/* Список предметов */
-.subjects-list {
-  list-style: none;
-  padding: 0;
-}
-.subject-item {
-  background: #2b2b3d;
-  padding: 18px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-.subject-item:hover {
-  background: #3a3a50;
-  transform: scale(1.02);
-}
-
-/* Кнопка "Назад" */
-.back-button {
-  margin-bottom: 20px;
-}
-
-/* Таблица с файлами */
-.files-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-.files-table th, .files-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #444;
-}
-.files-table th {
-  color: #d0d0d0;
-}
-.files-table td a {
-  color: #4da6ff;
-  text-decoration: none;
-  font-weight: bold;
-}
-.files-table td a:hover {
-  text-decoration: underline;
-}
-.files-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-/* --- Киберпанк: Стили для навигации и УМКД --- */
-body.theme-cyberpunk .bottom-nav {
-  background: rgba(15, 12, 41, 0.98);
-  border-top: 2px solid #ff00cc;
-  box-shadow: 0 0 24px #00fff7, 0 0 4px #ff00cc;
-}
-
-body.theme-cyberpunk .nav-item {
-  color: #00fff7;
-  text-shadow: 0 0 6px #00fff7;
-  font-family: 'Orbitron', Arial, sans-serif;
-  transition: all 0.2s;
-}
-
-body.theme-cyberpunk .nav-item.active {
-  background: #ff00cc;
-  color: #fff;
-  text-shadow: 0 0 12px #fff;
-  border-top: 3px solid #00fff7;
-}
-
-body.theme-cyberpunk .subject-card {
-  background: rgba(26, 0, 51, 0.85);
-  border: 2px solid #00fff7;
-  box-shadow: 0 0 18px #00fff7, 0 0 8px #ff00cc;
-}
-
-body.theme-cyberpunk .subject-card h3 {
-  color: #ff00cc;
-}
-
-body.theme-cyberpunk .file-link {
-    color: #00fff7;
-}
-body.theme-cyberpunk .file-link:hover {
-    color: #fff;
-}
-
-/* --- Рождество: Стили для навигации и УМКД --- */
-body.theme-christmas .bottom-nav {
-  background: #4e7c59;
-  border-top: 4px solid #c62828;
-  box-shadow: 0 -2px 16px #b2dfdb;
-}
-
-body.theme-christmas .nav-item {
-  color: #fff8e1;
-}
-
-body.theme-christmas .nav-item.active {
-  color: #fff;
-  background: #c62828;
-  border-top: 3px solid #ffd600;
-}
-
-body.theme-christmas .subject-card {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #388e3c;
-  color: #3e2723;
-}
-
-body.theme-christmas .subject-card h3 {
-  color: #c62828;
-}
-
-body.theme-christmas .file-link {
-    color: #388e3c;
-}
-body.theme-christmas .file-link:hover {
-    color: #c62828;
-}
-
-/* --- Минимализм: Стили для навигации и УМКД --- */
-body.theme-minimalistic .bottom-nav {
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.04);
-}
-
-body.theme-minimalistic .nav-item {
-  color: #757575;
-  font-weight: 500;
-}
-
-body.theme-minimalistic .nav-item.active {
-  color: #1976d2;
-  background: #f7f7f7;
-  border-top: 3px solid #1976d2;
-}
-
-body.theme-minimalistic .subject-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
-}
-
-body.theme-minimalistic .subject-card h3 {
-  color: #1976d2;
-}
-
-body.theme-minimalistic .file-link {
-    color: #1976d2;
-}
-body.theme-minimalistic .file-link:hover {
-    color: #232323;
-}
-
-/* --- Золотая: Стили для навигации и УМКД --- */
 body.theme-gold .bottom-nav {
   background: #1a1a1a;
   border-top: 4px solid #ffd800;
@@ -1537,7 +1169,6 @@ body.theme-gold .nav-item {
 body.theme-gold .nav-item.active {
   color: #000;
   background: #ffd800;
-  border-top: 3px solid #fff;
 }
 
 body.theme-gold .subject-card {
@@ -1551,8 +1182,275 @@ body.theme-gold .subject-card h3 {
 }
 
 body.theme-gold .file-link {
-    color: #ffd800;
+  color: #ffd800;
 }
+
 body.theme-gold .file-link:hover {
-    color: #fff;
+  color: #fff;
 }
+
+.content-section.hidden {
+  display: none;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #2b2b3d;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  padding: 15px 5px;
+  cursor: pointer;
+  color: #a0a0b0;
+  transition: background 0.2s, color 0.2s;
+  font-size: 0.9rem;
+}
+
+.nav-item:hover {
+  background: #3a3a50;
+}
+
+.nav-item.active {
+  color: #fff;
+  font-weight: bold;
+  background: #3a3a50;
+}
+
+#umkd-container {
+  padding: 10px;
+  padding-bottom: 80px;
+}
+
+@media (min-width: 1024px) {
+  #umkd-container {
+    padding: 60px 220px;
+    padding-bottom: 80px;
+  }
+}
+
+.subject-card {
+  background: #2b2b3d;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.subject-card h3 {
+  margin-bottom: 12px;
+  color: #d0d0d0;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+}
+
+.subject-card ul {
+  list-style: none;
+}
+
+.file-link {
+  display: block;
+  padding: 8px 0;
+  color: #4da6ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.file-link:hover {
+  color: #8ac6ff;
+}
+
+.subjects-list {
+  list-style: none;
+  padding: 0;
+}
+
+.subject-item {
+  background: #2b2b3d;
+  padding: 18px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  color:#f0f0f0;
+}
+
+.subject-item:hover {
+  background: #3a3a50;
+  transform: scale(1.02);
+}
+
+.back-button {
+  margin-bottom: 20px;
+}
+
+
+
+.files-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.file-card {
+  display: flex;
+  align-items: center;
+  background-color: #2b2b3d;
+  padding: 12px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.file-card:hover {
+  background-color: #3a3a50;
+  transform: translateY(-2px);
+}
+
+.file-icon {
+  font-size: 2em;
+  margin-right: 15px;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.file-name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
+}
+
+.file-meta {
+  font-size: 0.8em;
+  color: #a0a0b0;
+  margin-top: 4px;
+}
+
+
+
+.holiday {
+  position: relative;
+  overflow: hidden;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pyro>.before,
+.pyro>.after {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+  animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+}
+
+.pyro>.after {
+  animation-delay: 1.25s, 1.25s, 1.25s;
+  animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+@keyframes bang {
+  to {
+    box-shadow: -229px -174px #ff00de, -82px -122px #ff0000, -202px -112px #00ff62, -189px -339px #0066ff, 12px -341px #ffb300, -181px -13px #deff00, -112px -317px #ff0095, -191px -335px #00ffb3, -114px -350px #ff0088, -200px -390px #0059ff, -7px -249px #ff6600, -222px -301px #ff0000, 114px -14px #00d5ff, -137px -33px #ff00dd, -177px -283px #00ff22, 196px -113px #0015ff, 196px -109px #00ff2f, -145px -109px #ff9500, 14px -17px #00ffbb, 59px -359px #ff006f, -165px -32px #11ff00, 111px -200px #0040ff, -121px -20px #00ff6f, 13px -320px #ff00d0, 153px -122px #ffb700, -125px -309px #0073ff, -17px -389px #9dff00, -152px -380px #00ff73, 11px -370px #ff00b3, -59px -289px #ff00b7, 98px -341px #ff3c00, -134px -34px #00ffea, -65px -383px #00ffdd, -18px -308px #0073ff, -201px -325px #00ff62, 57px -12px #ff2f00, -126px -343px #ff00a6, -248px -134px #deff00, -152px -6px #ff4800, -10px -207px #ff0044, -184px -190px #ff6f00, -13px -104px #91ff00, 126px -278px #ff6600, 193px -351px #00ff44, -10px -172px #ff00cc, -136px -13px #00ff3c, 64px -23px #002bff, -92px -129px #ff0091, 58px -188px #ff00dd, 203px -142px #00ff48;
+  }
+}
+
+@keyframes gravity {
+  to {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes position {
+
+  0%,
+  19.9% {
+    top: 20%;
+    left: 40%;
+  }
+
+  20%,
+  39.9% {
+    top: 50%;
+    left: 25%;
+  }
+
+  40%,
+  59.9% {
+    top: 15%;
+    left: 75%;
+  }
+
+  60%,
+  79.9% {
+    top: 30%;
+    left: 15%;
+  }
+
+  80%,
+  99.9% {
+    top: 40%;
+    left: 85%;
+  }
+}
+
+
+.theme-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; 
+  padding: 15px;
+}
+
+.theme-preview {
+  display: flex;
+  margin-left: 15px;
+}
+
+.theme-preview .color-1,
+.theme-preview .color-2 {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #5f5f7a; 
+  display: block;
+}
+
+.theme-btn[data-theme="default"] .color-1 { background-color: #1e1e2f; }
+.theme-btn[data-theme="default"] .color-2 { background-color: #4da6ff; }
+
+.theme-btn[data-theme="cyberpunk"] .color-1 { background-color: #0f2027; }
+.theme-btn[data-theme="cyberpunk"] .color-2 { background-color: #ff00cc; }
+
+.theme-btn[data-theme="christmas"] .color-1 { background-color: #40385f; }
+.theme-btn[data-theme="christmas"] .color-2 { background-color: #c62828; }
+
+.theme-btn[data-theme="minimalistic"] .color-1 { background-color: #f7f7f7; }
+.theme-btn[data-theme="minimalistic"] .color-2 { background-color: #1976d2; }
+.theme-btn[data-theme="minimalistic"] .color-1,
+.theme-btn[data-theme="minimalistic"] .color-2 {
+  border-color: #e0e0e0; 
+}
+
+.theme-btn[data-theme="gold"] .color-1 { background-color: #000; }
+.theme-btn[data-theme="gold"] .color-2 { background-color: #ffd800; }

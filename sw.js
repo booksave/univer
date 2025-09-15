@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schedule-v3'; // Обновил версию кэша
+const CACHE_NAME = 'schedule-v3';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,7 +6,6 @@ const urlsToCache = [
   '/script.js',
   '/schedule.json',
   '/images/favicon_io/favicon-32x32.png',
-  // Добавьте другие важные файлы, если они есть
 ];
 
 self.addEventListener('install', event => {
@@ -23,11 +22,9 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Если ресурс есть в кэше, возвращаем его
         if (response) {
           return response;
         }
-        // Иначе, делаем запрос к сети
         return fetch(event.request);
       })
   );
