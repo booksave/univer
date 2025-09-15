@@ -1,11 +1,14 @@
-const CACHE_NAME = 'schedule-v3';
+const CACHE_NAME = 'univer-app-v1';
 const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
   '/schedule.json',
-  '/images/favicon_io/favicon-32x32.png',
+  '/schedule2.json', // Добавляем второе расписание в кэш
+  '/public/umkd.json',
+  '/images/icons/icon-192x192.png'
+  // Добавьте сюда другие важные файлы, если они есть
 ];
 
 self.addEventListener('install', event => {
@@ -22,10 +25,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
+        return response || fetch(event.request);
       })
   );
 });
