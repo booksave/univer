@@ -1,88 +1,83 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Расписание</title>
+    <title>Univer</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <script defer src="script.js"></script>
-    <link rel="icon" type="image/png" href="images\favicon_io\favicon-32x32.png">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-
-    <link rel="apple-touch-icon" href="images\favicon_io\apple-touch-icon.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Расписание">
-
+    <link rel="icon" href="/images/favicon_io/favicon-32x32.png" type="image/png">
 </head>
-
 <body>
-    <header>
-        <div class="header-left">
-            <button id="menu-btn" aria-label="Меню">
-                <span class="burger"></span>
-                <span class="burger"></span>
-                <span class="burger"></span>
-            </button>
-            <h1>Расписание</h1>
-        </div>
-        <div class="header-right">
-            <div class="buttons">
-                <button id="numerator-btn">Чc</button>
-                <button id="denominator-btn">Зн</button>
+
+    <div id="schedule-section" class="content-section">
+        
+        <header>
+            <div class="header-left">
+                <button id="menu-btn">
+                    <span class="burger"></span>
+                    <span class="burger"></span>
+                    <span class="burger"></span>
+                </button>
+                <h1>Univer</h1>
             </div>
+            <div class="header-right">
+                <span id="current-week">Сейчас: ...</span>
+            </div>
+            <nav id="menu" class="menu-hidden">
+                <ul>
+                    <li><a href="#">Настройки</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="buttons">
+                <button id="numerator-btn">Числитель</button>
+                <button id="denominator-btn">Знаменатель</button>
+            </div>
+            <h2 id="week-type">Неделя: ...</h2>
+            <div id="schedule-container"></div>
+        </main>
+
+    </div>
+
+    <div id="umkd-section" class="content-section hidden">
+        <header>
+            <h1>УМКД</h1>
+        </header>
+        <main id="umkd-container"></main>
+    </div>
+
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-target="schedule-section">
+            <span>Расписание</span>
         </div>
-        <nav id="menu" class="menu-hidden">
-            <ul>
-                <li><a href="#">Главная</a></li>
-                <li><a href="#">Настройки</a></li>
-            </ul>
-        </nav>
-    </header>
+        <div class="nav-item" data-target="umkd-section">
+            <span>УМКД</span>
+        </div>
+    </nav>
+
 
     <div id="settings-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-btn" id="close-settings">&times;</span>
-            <h3>Выбор темы</h3>
+            <h2>Настройки темы</h2>
             <div class="theme-options">
-                <button class="theme-btn" data-theme="default">Octopus</button>
-                <button class="theme-btn" data-theme="minimalistic">Minimalism</button>
-                <button class="theme-btn" data-theme="cyberpunk">Cyberpunk β</button>
-                <button class="theme-btn" data-theme="christmas">New Year β</button>
-                <button class="theme-btn" data-theme="gold">Aurum β</button>
+                <button class="theme-btn" data-theme="default">Стандартная</button>
+                <button class="theme-btn" data-theme="cyberpunk">Киберпанк</button>
+                <button class="theme-btn" data-theme="christmas">Рождество</button>
+                <button class="theme-btn" data-theme="minimalistic">Минимализм</button>
+                <button class="theme-btn" data-theme="gold">Золотая</button>
             </div>
-            <hr>
-            <a href="suggestions.html" class="modal-link">Предложка✉️</a>
         </div>
     </div>
 
-    <main>
-        <div id="current-week"></div>
-        <section id="schedule">
-            <h2 id="week-type"></h2>
-            <div id="schedule-container"></div>
-        </section>
-
-    </main>
-
     <footer>
-        <p>© 2025 – Расписание Live 1.0.2</p>
+        <p>© Univer</p>
     </footer>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').then(function (reg) {
-                    // Успешно зарегистрирован
-                }, function (err) {
-                    // Ошибка регистрации
-                    console.warn('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
-</body>
 
+    <script src="script.js"></script>
+
+</body>
 </html>

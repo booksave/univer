@@ -97,9 +97,9 @@ h2 {
   animation: fadeInUp 0.4s forwards;
 }
 
-.day li:hover {
+/* .day li:hover {
   background: #3a2668;
-}
+} */
 
 @keyframes fadeInUp {
   to {
@@ -149,7 +149,7 @@ footer {
 
 
 /* Подсветка текущего урока */
-.current-lesson {
+.day li.current-lesson {
   background: #3a2668;
   font-weight: bold;
   border-radius: 8px;
@@ -568,13 +568,13 @@ body.theme-cyberpunk .day li {
   font-family: 'Orbitron', Arial, sans-serif;
 }
 
-body.theme-cyberpunk .day li:hover {
+/* body.theme-cyberpunk .day li:hover {
   background: rgba(255, 0, 204, 0.15);
   color: #ff00cc;
   box-shadow: 0 0 16px #ff00cc;
-}
+}*/
 
-body.theme-cyberpunk .current-lesson {
+body.theme-cyberpunk .day li.current-lesson {
   color: #fff;
   font-weight: bold;
   border: 2px solid #ff00cc;
@@ -778,13 +778,13 @@ body.theme-christmas .day li {
   font-family: inherit;
 }
 
-body.theme-christmas .day li:hover {
+/* body.theme-christmas .day li:hover {
   background: #ffe082;
   color: #c62828;
   box-shadow: 0 0 8px #ffd600;
-}
+}*/
 
-body.theme-christmas .current-lesson {
+body.theme-christmas .day li.current-lesson {
   background: #ffe082;
   color: #c62828;
   box-shadow: 0 0 8px #ffd600;
@@ -936,13 +936,13 @@ body.theme-minimalistic .day li {
   font-family: inherit;
 }
 
-body.theme-minimalistic .day li:hover {
+/* body.theme-minimalistic .day li:hover {
   background: #e3f2fd;
   color: #1976d2;
   border-left: 3px solid #232323;
-}
+} */
 
-body.theme-minimalistic .current-lesson {
+body.theme-minimalistic .day li.current-lesson {
   background: #e3f2fd;
   color: #1976d2;
   border-left: 3px solid #232323;
@@ -1082,13 +1082,12 @@ header.theme-gold h1 {
   transition: background 0.2s, color 0.2s;
 }
 
-.theme-gold .day li:hover {
+/*.theme-gold .day li:hover {
   background: #a7942a;
   color: #000;
-}
+} */
 
-.theme-gold .current-lesson {
-  color: #ffffff;
+.theme-gold .day li.current-lesson {
   border: 2px solid #fff;
   box-shadow: 0 0 16px #ffd80099;
 }
@@ -1258,4 +1257,302 @@ header.theme-gold h1 {
   left: 70%;
   top: 60%;
   animation-delay: -0.4s;
+}
+/* =============================================================== */
+/* --- Стили для навигации и вкладок (добавленный код) --- */
+/* =============================================================== */
+
+/* Правило, которое скрывает неактивную секцию контента */
+.content-section.hidden {
+  display: none;
+}
+
+/* Стили для самой панели навигации. 
+  'position: fixed' прикрепляет ее к низу экрана.
+*/
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #2b2b3d; /* Цвет фона под ваш основной дизайн */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Чтобы навигация была поверх всего */
+  padding-bottom: env(safe-area-inset-bottom); /* Отступ для iPhone */
+}
+
+/* Стили для каждой кнопки в панели навигации.
+  'flex: 1' заставляет их занять все доступное пространство поровну.
+*/
+.nav-item {
+  flex: 1;
+  text-align: center;
+  padding: 15px 5px;
+  cursor: pointer;
+  color: #a0a0b0; /* Цвет неактивной иконки */
+  transition: background 0.2s, color 0.2s;
+  font-size: 0.9rem; /* Немного уменьшим шрифт */
+}
+
+/* Эффект при наведении мыши */
+.nav-item:hover {
+  background: #3a3a50;
+}
+
+/* Стиль для активной (выбранной) кнопки */
+.nav-item.active {
+  color: #fff; /* Яркий белый цвет для текста */
+  font-weight: bold;
+  border-top: 3px solid #4da6ff; /* Синяя полоска сверху, как индикатор */
+  background: #3a3a50; /* Немного другой фон для выделения */
+}
+
+
+/* =============================================================== */
+/* --- Стили для оформления новой секции "УМКД" --- */
+/* =============================================================== */
+
+/* Основной контейнер для УМКД, чтобы были отступы */
+#umkd-container {
+  padding: 10px;
+  /* Добавляем отступ снизу, чтобы контент не перекрывался навигацией */
+  padding-bottom: 80px; 
+}
+
+/* Отступы для большого экрана, как у расписания */
+@media (min-width: 1024px) {
+  #umkd-container {
+     padding: 60px 220px;
+     padding-bottom: 80px;
+  }
+}
+
+/* Карточка для каждого отдельного предмета */
+.subject-card {
+  background: #2b2b3d;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Заголовок с названием предмета */
+.subject-card h3 {
+  margin-bottom: 12px;
+  color: #d0d0d0;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+}
+
+/* Убираем стандартные маркеры у списка файлов */
+.subject-card ul {
+  list-style: none;
+}
+
+/* Ссылка на файл */
+.file-link {
+  display: block;
+  padding: 8px 0;
+  color: #4da6ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.file-link:hover {
+  color: #8ac6ff;
+}
+
+
+/* --- Стили для нового интерфейса УМКД --- */
+
+/* Список предметов */
+.subjects-list {
+  list-style: none;
+  padding: 0;
+}
+.subject-item {
+  background: #2b2b3d;
+  padding: 18px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.subject-item:hover {
+  background: #3a3a50;
+  transform: scale(1.02);
+}
+
+/* Кнопка "Назад" */
+.back-button {
+  margin-bottom: 20px;
+}
+
+/* Таблица с файлами */
+.files-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+.files-table th, .files-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+.files-table th {
+  color: #d0d0d0;
+}
+.files-table td a {
+  color: #4da6ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.files-table td a:hover {
+  text-decoration: underline;
+}
+.files-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+/* --- Киберпанк: Стили для навигации и УМКД --- */
+body.theme-cyberpunk .bottom-nav {
+  background: rgba(15, 12, 41, 0.98);
+  border-top: 2px solid #ff00cc;
+  box-shadow: 0 0 24px #00fff7, 0 0 4px #ff00cc;
+}
+
+body.theme-cyberpunk .nav-item {
+  color: #00fff7;
+  text-shadow: 0 0 6px #00fff7;
+  font-family: 'Orbitron', Arial, sans-serif;
+  transition: all 0.2s;
+}
+
+body.theme-cyberpunk .nav-item.active {
+  background: #ff00cc;
+  color: #fff;
+  text-shadow: 0 0 12px #fff;
+  border-top: 3px solid #00fff7;
+}
+
+body.theme-cyberpunk .subject-card {
+  background: rgba(26, 0, 51, 0.85);
+  border: 2px solid #00fff7;
+  box-shadow: 0 0 18px #00fff7, 0 0 8px #ff00cc;
+}
+
+body.theme-cyberpunk .subject-card h3 {
+  color: #ff00cc;
+}
+
+body.theme-cyberpunk .file-link {
+    color: #00fff7;
+}
+body.theme-cyberpunk .file-link:hover {
+    color: #fff;
+}
+
+/* --- Рождество: Стили для навигации и УМКД --- */
+body.theme-christmas .bottom-nav {
+  background: #4e7c59;
+  border-top: 4px solid #c62828;
+  box-shadow: 0 -2px 16px #b2dfdb;
+}
+
+body.theme-christmas .nav-item {
+  color: #fff8e1;
+}
+
+body.theme-christmas .nav-item.active {
+  color: #fff;
+  background: #c62828;
+  border-top: 3px solid #ffd600;
+}
+
+body.theme-christmas .subject-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #388e3c;
+  color: #3e2723;
+}
+
+body.theme-christmas .subject-card h3 {
+  color: #c62828;
+}
+
+body.theme-christmas .file-link {
+    color: #388e3c;
+}
+body.theme-christmas .file-link:hover {
+    color: #c62828;
+}
+
+/* --- Минимализм: Стили для навигации и УМКД --- */
+body.theme-minimalistic .bottom-nav {
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.04);
+}
+
+body.theme-minimalistic .nav-item {
+  color: #757575;
+  font-weight: 500;
+}
+
+body.theme-minimalistic .nav-item.active {
+  color: #1976d2;
+  background: #f7f7f7;
+  border-top: 3px solid #1976d2;
+}
+
+body.theme-minimalistic .subject-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+}
+
+body.theme-minimalistic .subject-card h3 {
+  color: #1976d2;
+}
+
+body.theme-minimalistic .file-link {
+    color: #1976d2;
+}
+body.theme-minimalistic .file-link:hover {
+    color: #232323;
+}
+
+/* --- Золотая: Стили для навигации и УМКД --- */
+body.theme-gold .bottom-nav {
+  background: #1a1a1a;
+  border-top: 4px solid #ffd800;
+  box-shadow: 0 -2px 12px #ffd80033;
+}
+
+body.theme-gold .nav-item {
+  color: #ffd800;
+  font-weight: bold;
+}
+
+body.theme-gold .nav-item.active {
+  color: #000;
+  background: #ffd800;
+  border-top: 3px solid #fff;
+}
+
+body.theme-gold .subject-card {
+  background: #111;
+  border: 2px solid #ffd800;
+  box-shadow: 0 2px 12px #ffd80022;
+}
+
+body.theme-gold .subject-card h3 {
+  color: #ffd800;
+}
+
+body.theme-gold .file-link {
+    color: #ffd800;
+}
+body.theme-gold .file-link:hover {
+    color: #fff;
 }

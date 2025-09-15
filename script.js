@@ -1,6 +1,9 @@
+// ===============================================================
+// ЛОГИКА РАСПИСАНИЯ
+// ===============================================================
+
 let scheduleData = {};
 
-// --- Определение числитель/знаменатель ---
 function detectWeekType() {
   const now = new Date();
   const year = now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1;
@@ -9,311 +12,246 @@ function detectWeekType() {
   return diff % 2 === 0 ? "numerator" : "denominator";
 }
 
-// --- Загрузка JSON ---
 async function loadSchedule() {
-  const res = await fetch("schedule.json");
-  scheduleData = await res.json();
-
-  const type = detectWeekType();
-  document.getElementById("current-week").textContent =
-    "Сейчас: " + (type === "numerator" ? "числитель" : "знаменатель");
-
-  renderSchedule(type);
-  highlightTodayAndLesson(type);
-
-  document.getElementById("numerator-btn").addEventListener("click", () => {
-    renderSchedule("numerator");
-    highlightTodayAndLesson("numerator");
-  });
-
-  document.getElementById("denominator-btn").addEventListener("click", () => {
-    renderSchedule("denominator");
-    highlightTodayAndLesson("denominator");
-  });
+  try {
+    const res = await fetch("schedule.json");
+    scheduleData = await res.json();
+    const type = detectWeekType();
+    document.getElementById("current-week").textContent = "Сейчас: " + (type === "numerator" ? "числитель" : "знаменатель");
+    renderSchedule(type);
+    highlightTodayAndLesson(); // Убрали параметр, так как он не нужен
+  } catch (error) {
+    console.error("Не удалось загрузить расписание:", error);
+    document.getElementById("schedule-container").innerHTML = "<p>Ошибка загрузки расписания.</p>";
+  }
 }
 
-// --- Отрисовка расписания ---
 function renderSchedule(type) {
   const container = document.getElementById("schedule-container");
   const weekLabel = document.getElementById("week-type");
-
   container.innerHTML = "";
   weekLabel.textContent = "Неделя: " + (type === "numerator" ? "числитель" : "знаменатель");
-
   const days = scheduleData[type];
-  const dayNamesRu = {
-    monday: "Понедельник",
-    tuesday: "Вторник",
-    wednesday: "Среда",
-    thursday: "Четверг",
-    friday: "Пятница",
-    saturday: "Суббота",
-    sunday: "Воскресенье"
-  };
-
+  const dayNamesRu = { monday: "Понедельник", tuesday: "Вторник", wednesday: "Среда", thursday: "Четверг", friday: "Пятница", saturday: "Суббота", sunday: "Воскресенье" };
   for (const [day, lessons] of Object.entries(days)) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "day";
-
     const dayTitle = document.createElement("h3");
     dayTitle.textContent = dayNamesRu[day];
     dayDiv.appendChild(dayTitle);
-
     const ul = document.createElement("ul");
-
-    // Проверяем — выходной?
-    if (!lessons || lessons.length === 0 || Object.keys(lessons[0]).length === 0) {
+    if (!lessons || lessons.length === 0 || (lessons.length === 1 && Object.keys(lessons[0]).length === 0) ) {
       const li = document.createElement("li");
       li.className = "holiday";
-
-      for (let i = 0; i < 5; i++) {
-        const span = document.createElement("span");
-        span.className = "firework";
-        span.style.animationDelay = `${i * 0.3}s`;
-        li.appendChild(span);
-      }
-
-      const text = document.createElement("span");
-      text.className = "holiday-text";
-      text.textContent = "Выходной";
-      li.appendChild(text);
-
+      li.textContent = "Выходной";
       ul.appendChild(li);
-
     } else {
       lessons.forEach(lesson => {
         const li = document.createElement("li");
-        li.innerHTML = `
-            <strong>${lesson.time}</strong> — ${lesson.subject} 
-            <br><em>${lesson.room}, ${lesson.teacher}</em>
-          `;
+        li.innerHTML = `<strong>${lesson.time}</strong> — ${lesson.subject} <br><em>${lesson.room}, ${lesson.teacher}</em>`;
         ul.appendChild(li);
       });
     }
-
     dayDiv.appendChild(ul);
     container.appendChild(dayDiv);
   }
 }
 
-
-
-// --- Подсветка текущего дня и пары ---
-function highlightTodayAndLesson(type) {
-  const now = new Date();
-  const dayIndex = now.getDay(); // 0=вс, 1=пн ... 6=сб
-  const daysRu = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-  const currentDay = daysRu[dayIndex];
-
-  // Подсветка дня
-  document.querySelectorAll(".day").forEach(dayDiv => {
-    const title = dayDiv.querySelector("h3");
-    if (title.textContent === currentDay) {
-      dayDiv.classList.add("today");
-    }
-  });
-
-  // Подсветка пары (по времени)
-  const currentTime = now.getHours() * 60 + now.getMinutes();
-
-  const timeToMinutes = timeStr => {
-    const [h, m] = timeStr.split(":").map(Number);
-    return h * 60 + m;
-  };
-
-  const dayBlock = [...document.querySelectorAll(".day")].find(
-    d => d.querySelector("h3").textContent === currentDay
-  );
-
-  if (dayBlock) {
-    const lessons = dayBlock.querySelectorAll("li");
-    lessons.forEach(li => {
-      const match = li.innerHTML.match(/(\d{2}:\d{2})–(\d{2}:\d{2})/);
-      if (match) {
-        const start = timeToMinutes(match[1]);
-        const end = timeToMinutes(match[2]);
-        if (currentTime >= start && currentTime <= end) {
-          li.classList.add("current-lesson");
+function highlightTodayAndLesson() {
+    const now = new Date();
+    const dayIndex = now.getDay();
+    const daysRu = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+    const currentDayName = daysRu[dayIndex];
+  
+    document.querySelectorAll(".day").forEach(dayDiv => {
+      dayDiv.classList.remove("today");
+      const title = dayDiv.querySelector("h3");
+      if (title && title.textContent === currentDayName) {
+        dayDiv.classList.add("today");
+      }
+    });
+  
+    const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+    const timeToMinutes = timeStr => {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
+  
+    const todayDiv = document.querySelector(".day.today");
+    if (todayDiv) {
+      todayDiv.querySelectorAll("li").forEach(li => {
+        li.classList.remove("current-lesson");
+        const timeEl = li.querySelector("strong");
+        if (timeEl && timeEl.textContent.includes('–')) {
+          const [startStr, endStr] = timeEl.textContent.split('–');
+          const startTime = timeToMinutes(startStr.trim());
+          const endTime = timeToMinutes(endStr.trim());
+          if (currentTimeInMinutes >= startTime && currentTimeInMinutes <= endTime) {
+            li.classList.add("current-lesson");
+          }
         }
+      });
+    }
+}
+  
+// ===============================================================
+// ЛОГИКА УМКД
+// ===============================================================
+
+async function loadUmkd() {
+    const container = document.getElementById('umkd-container');
+    if (!container) return;
+    container.innerHTML = '<h2>Загрузка данных...</h2>';
+    try {
+        const response = await fetch('public/umkd.json');
+        if (!response.ok) { // Проверяем, что файл успешно загружен
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (Object.keys(data).length === 0) {
+            container.innerHTML = '<h2>Предметы еще не добавлены.</h2>';
+            return;
+        }
+        renderSubjects(data, container);
+    } catch (error) {
+        console.error("Ошибка при загрузке УМКД:", error);
+        container.innerHTML = '<h2>Не удалось загрузить данные. Проверьте файл public/umkd.json и его содержимое.</h2>';
+    }
+}
+
+function renderSubjects(data, container) {
+    container.innerHTML = '';
+    const subjectsList = document.createElement('ul');
+    subjectsList.className = 'subjects-list';
+    for (const subjectName in data) {
+        const li = document.createElement('li');
+        li.className = 'subject-item';
+        li.textContent = subjectName;
+        li.addEventListener('click', () => renderFiles(subjectName, data[subjectName], container, data));
+        subjectsList.appendChild(li);
+    }
+    container.appendChild(subjectsList);
+}
+
+function renderFiles(subjectName, files, container, allData) {
+    container.innerHTML = '';
+    const backButton = document.createElement('button');
+    backButton.textContent = '← Назад к предметам';
+    backButton.className = 'back-button';
+    backButton.addEventListener('click', () => renderSubjects(allData, container));
+    container.appendChild(backButton);
+    const title = document.createElement('h2');
+    title.textContent = subjectName;
+    container.appendChild(title);
+    if (files.length === 0) {
+        container.innerHTML += '<p>Файлов для этого предмета пока нет.</p>';
+        return;
+    }
+    const table = document.createElement('table');
+    table.className = 'files-table';
+    table.innerHTML = `<thead><tr><th>Название</th><th>Тип</th><th>Размер</th><th>Дата</th></tr></thead>`;
+    const tbody = document.createElement('tbody');
+    files.forEach(file => {
+        const tr = document.createElement('tr');
+        const filePath = `public/${encodeURIComponent(subjectName)}/${encodeURIComponent(file.name)}`;
+        tr.innerHTML = `<td><a href="${filePath}" download>${file.name}</a></td><td>${file.type}</td><td>${file.size}</td><td>${file.date}</td>`;
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    container.appendChild(table);
+}
+
+
+// ===============================================================
+// ГЛАВНЫЙ ОБРАБОТЧИК СОБЫТИЙ
+// ===============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  // --- ЛОГИКА: МЕНЮ, НАСТРОЙКИ, СМЕНА ТЕМ ---
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', () => menu.classList.toggle('menu-hidden'));
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menu.classList.add('menu-hidden');
       }
     });
   }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const menuBtn = document.getElementById('menu-btn');
-  const menu = document.getElementById('menu');
-
-  menuBtn.addEventListener('click', () => {
-    menu.classList.toggle('menu-hidden');
-  });
-
-  // Закрытие меню при клике вне его
-  document.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-      menu.classList.add('menu-hidden');
-    }
-  });
-
-  // Открытие настроек
-  document.querySelectorAll('#menu li a').forEach(link => {
-    if (link.textContent.trim() === 'Настройки') {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('settings-modal').classList.remove('hidden');
-        document.getElementById('menu').classList.add('menu-hidden');
-      });
-    }
-  });
-
-  // Закрытие окна настроек
-  document.getElementById('close-settings').onclick = () => {
-    document.getElementById('settings-modal').classList.add('hidden');
-  };
-
-  // Смена темы
+  const settingsLink = Array.from(document.querySelectorAll('#menu li a')).find(link => link.textContent.trim() === 'Настройки');
+  const settingsModal = document.getElementById('settings-modal');
+  if (settingsLink && settingsModal) {
+    settingsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      settingsModal.classList.remove('hidden');
+      if (menu) menu.classList.add('menu-hidden');
+    });
+  }
+  const closeSettingsBtn = document.getElementById('close-settings');
+  if (closeSettingsBtn && settingsModal) {
+    closeSettingsBtn.onclick = () => settingsModal.classList.add('hidden');
+  }
   document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.onclick = () => {
-      document.body.classList.remove('theme-cyberpunk', 'theme-christmas', 'theme-minimalistic', 'theme-gold');
+      document.body.className = '';
       if (btn.dataset.theme !== 'default') {
         document.body.classList.add('theme-' + btn.dataset.theme);
       }
-      document.getElementById('settings-modal').classList.add('hidden');
+      if (settingsModal) settingsModal.classList.add('hidden');
       localStorage.setItem('theme', btn.dataset.theme);
     };
   });
-
-
-  // Применение темы при загрузке
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme && savedTheme !== 'default') {
     document.body.classList.add('theme-' + savedTheme);
   }
+
+  // --- ЛОГИКА: ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ---
+  const navItems = document.querySelectorAll('.nav-item');
+  const contentSections = document.querySelectorAll('.content-section');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      const targetId = item.dataset.target;
+      contentSections.forEach(section => {
+        if (section.id === targetId) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Запускаем загрузку УМКД и расписания
+  loadUmkd();
+  loadSchedule();
+
+  // --- КНОПКИ ЧИСЛИТЕЛЬ/ЗНАМЕНАТЕЛЬ ---
+  document.getElementById("numerator-btn").addEventListener("click", () => {
+    renderSchedule("numerator");
+    highlightTodayAndLesson();
+  });
+  document.getElementById("denominator-btn").addEventListener("click", () => {
+    renderSchedule("denominator");
+    highlightTodayAndLesson();
+  });
 });
 
-window.addEventListener("DOMContentLoaded", loadSchedule);
 
-const CACHE_NAME = 'schedule-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/schedule.json',
-  '/images/favicon_io/favicon-32x32.png',
-  '/images/favicon_io/android-chrome-192x192.png',
-  '/images/favicon_io/android-chrome-512x512.png'
-];
+// ===============================================================
+// SERVICE WORKER ДЛЯ РАБОТЫ ОФФЛАЙН
+// ===============================================================
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
-});
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDJB6qoJtNLvBBPn7G7SwujL7uf0YHfnEs",
-  authDomain: "univer-fc0db.firebaseapp.com",
-  projectId: "univer-fc0db",
-  storageBucket: "univer-fc0db.appspot.com",
-  messagingSenderId: "191387845727",
-  appId: "1:191387845727:web:c3fd151e0a232cedb407ea",
-  measurementId: "G-5L7SY21MD2"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-
-
-async function loadSuggestions() {
-  const list = document.getElementById('suggestions-list');
-  list.innerHTML = '';
-  const snapshot = await db.collection('suggestions').get();
-  snapshot.forEach(doc => {
-    const item = doc.data();
-    const li = document.createElement('li');
-    li.textContent = item.text;
-
-    if (item.status === 'done') {
-      li.style.textDecoration = 'line-through';
-      li.style.color = 'green';
-      li.textContent += ' (Выполнено)';
-    } else if (item.status === 'rejected') {
-      li.style.color = 'red';
-      li.textContent += ' (Отклонено❌)';
-    }
-
-    if (item.status === 'new') {
-      const doneBtn = document.createElement('button');
-      doneBtn.textContent = 'Выполнено';
-      doneBtn.onclick = () => updateStatus(doc.id, 'done');
-
-      const rejectBtn = document.createElement('button');
-      rejectBtn.textContent = 'Отклонить';
-      rejectBtn.onclick = () => updateStatus(doc.id, 'rejected');
-
-      li.appendChild(doneBtn);
-      li.appendChild(rejectBtn);
-    }
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Удалить';
-    deleteBtn.onclick = () => deleteSuggestion(doc.id);
-    li.appendChild(deleteBtn);
-
-    list.appendChild(li);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful');
+      })
+      .catch(error => {
+        console.log('ServiceWorker registration failed: ', error);
+      });
   });
 }
-
-async function updateStatus(id, status) {
-  await db.collection('suggestions').doc(id).update({ status });
-  loadSuggestions();
-}
-
-async function deleteSuggestion(id) {
-  await db.collection('suggestions').doc(id).delete();
-  loadSuggestions();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('suggestion-form');
-  const input = document.getElementById('suggestion-input');
-  const list = document.getElementById('suggestions-list');
-
-  if (form && input && list) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const value = input.value.trim();
-      if (value) {
-        await db.collection('suggestions').add({ text: value, status: 'new' });
-        input.value = '';
-        loadSuggestions();
-      }
-    });
-
-    loadSuggestions();
-  }
-});
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const value = input.value.trim();
-  if (value.length < 1 || value.length > 500) {
-    alert('Текст предложения должен быть от 1 до 500 символов.');
-    return;
-  }
-  // Можно добавить фильтрацию от XSS
-  const safeValue = value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  await db.collection('suggestions').add({ text: safeValue, status: 'new' });
-  input.value = '';
-  loadSuggestions();
-});
