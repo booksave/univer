@@ -1,7 +1,3 @@
-// ===============================================================
-// ЛОГИКА РАСПИСАНИЯ
-// ===============================================================
-
 let scheduleData = {};
 
 function detectWeekType() {
@@ -19,7 +15,7 @@ async function loadSchedule() {
     const type = detectWeekType();
     document.getElementById("current-week").textContent = "Сейчас: " + (type === "numerator" ? "числитель" : "знаменатель");
     renderSchedule(type);
-    highlightTodayAndLesson(); // Убрали параметр, так как он не нужен
+    highlightTodayAndLesson();
   } catch (error) {
     console.error("Не удалось загрузить расписание:", error);
     document.getElementById("schedule-container").innerHTML = "<p>Ошибка загрузки расписания.</p>";
@@ -93,10 +89,6 @@ function highlightTodayAndLesson() {
       });
     }
 }
-  
-// ===============================================================
-// ЛОГИКА УМКД
-// ===============================================================
 
 async function loadUmkd() {
     const container = document.getElementById('umkd-container');
@@ -104,7 +96,7 @@ async function loadUmkd() {
     container.innerHTML = '<h2>Загрузка данных...</h2>';
     try {
         const response = await fetch('public/umkd.json');
-        if (!response.ok) { // Проверяем, что файл успешно загружен
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
@@ -115,7 +107,7 @@ async function loadUmkd() {
         renderSubjects(data, container);
     } catch (error) {
         console.error("Ошибка при загрузке УМКД:", error);
-        container.innerHTML = '<h2>Не удалось загрузить данные. Проверьте файл public/umkd.json и его содержимое.</h2>';
+        container.innerHTML = '<h2>Не удалось загрузить данные. Проверьте файл public/umkd.json.</h2>';
     }
 }
 
@@ -161,13 +153,7 @@ function renderFiles(subjectName, files, container, allData) {
     container.appendChild(table);
 }
 
-
-// ===============================================================
-// ГЛАВНЫЙ ОБРАБОТЧИК СОБЫТИЙ
-// ===============================================================
-
 document.addEventListener('DOMContentLoaded', () => {
-  // --- ЛОГИКА: МЕНЮ, НАСТРОЙКИ, СМЕНА ТЕМ ---
   const menuBtn = document.getElementById('menu-btn');
   const menu = document.getElementById('menu');
   if (menuBtn && menu) {
@@ -206,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('theme-' + savedTheme);
   }
 
-  // --- ЛОГИКА: ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ---
   const navItems = document.querySelectorAll('.nav-item');
   const contentSections = document.querySelectorAll('.content-section');
   navItems.forEach(item => {
@@ -224,11 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Запускаем загрузку УМКД и расписания
   loadUmkd();
   loadSchedule();
 
-  // --- КНОПКИ ЧИСЛИТЕЛЬ/ЗНАМЕНАТЕЛЬ ---
   document.getElementById("numerator-btn").addEventListener("click", () => {
     renderSchedule("numerator");
     highlightTodayAndLesson();
@@ -238,9 +221,3 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightTodayAndLesson();
   });
 });
-
-
-// ===============================================================
-// SERVICE WORKER ДЛЯ РАБОТЫ ОФФЛАЙН
-// ===============================================================
-
