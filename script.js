@@ -17,8 +17,13 @@ async function loadSchedule(scheduleFile) {
     scheduleData = await res.json();
     const type = detectWeekType();
     document.getElementById("current-week").textContent = "Сейчас: " + (type === "numerator" ? "числитель" : "знаменатель");
-    renderSchedule(type);
-  } catch (error) {
+    
+    renderSchedule(type); 
+    
+    highlightTodayAndLesson(type); 
+
+  } catch (error)
+   {
     console.error("Не удалось загрузить расписание:", error);
     document.getElementById("schedule-container").innerHTML = `<p style="text-align: center; color: #ff8a8a;">${error.message}</p>`;
   }
