@@ -1,4 +1,4 @@
-const CACHE_NAME = 'univer-app-v1';
+const CACHE_NAME = 'univer-app-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,6 +6,7 @@ const urlsToCache = [
   '/script.js',
   '/schedule.json',
   '/schedule2.json', 
+  '/schedule3.json',
   '/public/umkd.json',
   '/images/icons/icon-192x192.png'
 ];
