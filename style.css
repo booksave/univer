@@ -1455,12 +1455,10 @@ body.theme-gold .file-link:hover {
 .theme-btn[data-theme="gold"] .color-1 { background-color: #000; }
 .theme-btn[data-theme="gold"] .color-2 { background-color: #ffd800; }
 
-/* =============================================================== */
-/* --- Стили для выбора группы в меню --- */
-/* =============================================================== */
+
 .group-selection {
-  padding: 10px 18px; /* Отступы, как у пунктов меню */
-  border-top: 1px solid #444; /* Разделительная линия */
+  padding: 10px 18px; 
+  border-top: 1px solid #444; 
   margin-top: 8px;
 }
 
@@ -1474,7 +1472,7 @@ body.theme-gold .file-link:hover {
 .group-options {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Расстояние между кнопками */
+  gap: 8px; 
 }
 
 .group-option {
@@ -1482,18 +1480,31 @@ body.theme-gold .file-link:hover {
   align-items: center;
 }
 
-/* Стилизуем label, чтобы вся строка была кликабельной */
 .group-option label {
   cursor: pointer;
   margin-left: 8px;
   width: 100%;
 }
 
-/* Стандартные радио-кнопки не очень красивые, можно их стилизовать, но для начала хватит и этого */
 .group-option input[type="radio"] {
   cursor: pointer;
 }
 
 #menu li {
   border-top: 1px #000 solid;
+}
+
+.modal-github-link {
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.modal-github-link a {
+  color: #a0a0b0;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.modal-github-link a:hover {
+  color: #fff;
 }
