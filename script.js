@@ -17,13 +17,9 @@ async function loadSchedule(scheduleFile) {
     scheduleData = await res.json();
     const type = detectWeekType();
     document.getElementById("current-week").textContent = "Сейчас: " + (type === "numerator" ? "числитель" : "знаменатель");
-    
-    renderSchedule(type); 
-    
-    highlightTodayAndLesson(type); 
-
-  } catch (error)
-   {
+    renderSchedule(type);
+    highlightTodayAndLesson(type);
+  } catch (error) {
     console.error("Не удалось загрузить расписание:", error);
     document.getElementById("schedule-container").innerHTML = `<p style="text-align: center; color: #ff8a8a;">${error.message}</p>`;
   }
@@ -94,8 +90,11 @@ function highlightTodayAndLesson(displayedWeekType) {
 }
   
 async function loadUmkd() {
-    const container = document.getElementById('umkd-container');
-    if (!container) return;
+  const container = document.getElementById('umkd-container');
+  if (!container) return;
+  const currentScheduleFile = localStorage.getItem('selectedSchedule') || 'schedule.json';
+  const allowedGroups = ['schedule.json', 'schedule2.json'];
+  if (allowedGroups.includes(currentScheduleFile)) {
     container.innerHTML = '<h2>Загрузка данных...</h2>';
     try {
         const response = await fetch('public/umkd.json');
@@ -107,51 +106,74 @@ async function loadUmkd() {
         console.error("Ошибка при загрузке УМКД:", error);
         container.innerHTML = '<h2>Не удалось загрузить данные.</h2>';
     }
+  } else {
+    container.innerHTML = '<h2>Для вашей группы УМКД еще не загружено.</h2>';
+  }
 }
+
 function renderSubjects(data, container) {
-    container.innerHTML = '';
-    const subjectsList = document.createElement('ul');
-    subjectsList.className = 'subjects-list';
-    for (const subjectName in data) {
-        const li = document.createElement('li');
-        li.className = 'subject-item';
-        li.textContent = subjectName;
-        li.addEventListener('click', () => renderFiles(subjectName, data[subjectName], container, data));
-        subjectsList.appendChild(li);
-    }
-    container.appendChild(subjectsList);
+  container.innerHTML = '';
+  const subjectsList = document.createElement('ul');
+  subjectsList.className = 'subjects-list';
+  for (const subjectName in data) {
+      const li = document.createElement('li');
+      li.className = 'subject-item';
+      li.textContent = subjectName;
+      li.addEventListener('click', () => renderFiles(subjectName, data[subjectName], container, data));
+      subjectsList.appendChild(li);
+  }
+  container.appendChild(subjectsList);
 }
+
 function renderFiles(subjectName, files, container, allData) {
-    container.innerHTML = '';
-    const backButton = document.createElement('button');
-    backButton.textContent = '← Назад к предметам';
-    backButton.className = 'back-button';
-    backButton.addEventListener('click', () => renderSubjects(allData, container));
-    container.appendChild(backButton);
-    const title = document.createElement('h2');
-    title.textContent = subjectName;
-    container.appendChild(title);
-    if (files.length === 0) { container.innerHTML += '<p>Файлов для этого предмета пока нет.</p>'; return; }
-    const filesContainer = document.createElement('div');
-    filesContainer.className = 'files-container';
-    const getFileIcon = (fileName) => {
-        const extension = fileName.split('.').pop().toLowerCase();
-        switch (extension) {
-            case 'pdf': return '📕'; case 'docx': case 'doc': return '📄'; case 'xlsx': case 'xls': return '📊';
-            case 'pptx': case 'ppt': return '💻'; case 'zip': case 'rar': return '📦'; default: return '📁';
-        }
-    };
-    files.forEach(file => {
-        const filePath = `public/${encodeURIComponent(subjectName)}/${encodeURIComponent(file.name)}`;
-        const cardLink = document.createElement('a');
-        cardLink.className = 'file-card';
-        cardLink.href = filePath;
-        cardLink.download = file.name;
-        cardLink.innerHTML = `<div class="file-icon">${getFileIcon(file.name)}</div><div class="file-info"><span class="file-name">${file.name}</span><span class="file-meta">${file.type} • ${file.size} • ${file.date}</span></div>`;
-        filesContainer.appendChild(cardLink);
-    });
-    container.appendChild(filesContainer);
+  container.innerHTML = '';
+  const backButton = document.createElement('button');
+  backButton.textContent = '← Назад к предметам';
+  backButton.className = 'back-button';
+  backButton.addEventListener('click', () => renderSubjects(allData, container));
+  container.appendChild(backButton);
+  const title = document.createElement('h2');
+  title.textContent = subjectName;
+  container.appendChild(title);
+  if (files.length === 0) { container.innerHTML += '<p>Файлов для этого предмета пока нет.</p>'; return; }
+  const filesContainer = document.createElement('div');
+  filesContainer.className = 'files-container';
+  const getFileIcon = (fileName) => {
+      const extension = fileName.split('.').pop().toLowerCase();
+      switch (extension) {
+          case 'pdf': return '📕'; case 'docx': case 'doc': return '📄'; case 'xlsx': case 'xls': return '📊';
+          case 'pptx': case 'ppt': return '💻'; case 'zip': case 'rar': return '📦'; default: return '📁';
+      }
+  };
+  files.forEach(file => {
+      const filePath = `public/${encodeURIComponent(subjectName)}/${encodeURIComponent(file.name)}`;
+      const cardLink = document.createElement('a');
+      cardLink.className = 'file-card';
+      cardLink.href = filePath;
+      cardLink.download = file.name;
+      cardLink.innerHTML = `<div class="file-icon">${getFileIcon(file.name)}</div><div class="file-info"><span class="file-name">${file.name}</span><span class="file-meta">${file.type} • ${file.size} • ${file.date}</span></div>`;
+      filesContainer.appendChild(cardLink);
+  });
+  container.appendChild(filesContainer);
 }
+
+function updatePageTitle() {
+  const selectedRadio = document.querySelector('input[name="group"]:checked');
+  if (selectedRadio) {
+    const label = document.querySelector(`label[for="${selectedRadio.id}"]`);
+    if (label) {
+      const groupName = label.textContent.trim();
+      
+      document.title = `Univer | ${groupName}`;
+      
+      const pageHeading = document.getElementById('page-heading');
+      if (pageHeading) {
+        pageHeading.textContent = groupName;
+      }
+    }
+  }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById('menu-btn');
@@ -205,21 +227,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   loadSchedule(savedScheduleFile);
+  loadUmkd();
+  updatePageTitle(); 
   
   groupRadios.forEach(radio => {
     radio.addEventListener('change', () => {
       const newScheduleFile = radio.value;
       localStorage.setItem('selectedSchedule', newScheduleFile);
       loadSchedule(newScheduleFile);
+      loadUmkd();
+      updatePageTitle(); 
       menu.classList.add('menu-hidden');
     });
   });
 
-  loadUmkd();
-
   document.getElementById("numerator-btn").addEventListener("click", () => { renderSchedule("numerator"); highlightTodayAndLesson("numerator"); });
   document.getElementById("denominator-btn").addEventListener("click", () => { renderSchedule("denominator"); highlightTodayAndLesson("denominator"); });
 });
+
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

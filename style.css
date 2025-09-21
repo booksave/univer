@@ -414,7 +414,7 @@ header {
 }
 
 
-/* === Киберпанк-тема (улучшенная) === */
+/* Киберпанк-тема (улучшенная) */
 body.theme-cyberpunk {
   background: linear-gradient(120deg, #0f2027 0%, #2c5364 100%);
   color: #00fff7;
@@ -559,7 +559,7 @@ body.theme-cyberpunk .day li.current-lesson {
   }
 }
 
-/* --- Киберпанк: Стили для навигации и УМКД --- */
+/* Киберпанк */
 body.theme-cyberpunk .bottom-nav {
   background: rgba(15, 12, 41, 0.98);
   border-top: 2px solid #ff00cc;
@@ -599,7 +599,7 @@ body.theme-cyberpunk .file-link:hover {
 }
 
 
-/* --- Рождественская тема: гирлянда на границах дней --- */
+/* Xmass */
 body.theme-christmas {
   background: linear-gradient(120deg, #40385f 0%, #0e3f46 100%);
   color: #3e2723;
@@ -789,7 +789,7 @@ body.theme-christmas .day li.current-lesson {
   }
 }
 
-/* --- Рождество: Стили для навигации и УМКД --- */
+/* Xmass */
 body.theme-christmas .bottom-nav {
   background: #4e7c59;
   border-top: 4px solid #c62828;
@@ -824,7 +824,7 @@ body.theme-christmas .file-link:hover {
   color: #c62828;
 }
 
-/* === Минималистичная тема === */
+/* Минималистичная тема */
 body.theme-minimalistic {
   background: #f7f7f7;
   color: #232323;
@@ -955,7 +955,7 @@ body.theme-minimalistic .day li.current-lesson {
   border-left: 3px solid #232323;
 }
 
-/* --- Минимализм: Стили для навигации и УМКД --- */
+/* Минимализм */
 body.theme-minimalistic .bottom-nav {
   background: #fff;
   border-top: 1px solid #e0e0e0;
@@ -1281,7 +1281,7 @@ body.theme-gold .file-link:hover {
   font-size: 1.1em;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
-  color:#f0f0f0;
+  color: #f0f0f0;
 }
 
 .subject-item:hover {
@@ -1419,7 +1419,7 @@ body.theme-gold .file-link:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   padding: 15px;
 }
 
@@ -1432,33 +1432,59 @@ body.theme-gold .file-link:hover {
 .theme-preview .color-2 {
   width: 20px;
   height: 20px;
-  border: 2px solid #5f5f7a; 
+  border: 2px solid #5f5f7a;
   display: block;
 }
 
-.theme-btn[data-theme="default"] .color-1 { background-color: #1e1e2f; }
-.theme-btn[data-theme="default"] .color-2 { background-color: #4da6ff; }
-
-.theme-btn[data-theme="cyberpunk"] .color-1 { background-color: #0f2027; }
-.theme-btn[data-theme="cyberpunk"] .color-2 { background-color: #ff00cc; }
-
-.theme-btn[data-theme="christmas"] .color-1 { background-color: #40385f; }
-.theme-btn[data-theme="christmas"] .color-2 { background-color: #c62828; }
-
-.theme-btn[data-theme="minimalistic"] .color-1 { background-color: #f7f7f7; }
-.theme-btn[data-theme="minimalistic"] .color-2 { background-color: #1976d2; }
-.theme-btn[data-theme="minimalistic"] .color-1,
-.theme-btn[data-theme="minimalistic"] .color-2 {
-  border-color: #e0e0e0; 
+.theme-btn[data-theme="default"] .color-1 {
+  background-color: #1e1e2f;
 }
 
-.theme-btn[data-theme="gold"] .color-1 { background-color: #000; }
-.theme-btn[data-theme="gold"] .color-2 { background-color: #ffd800; }
+.theme-btn[data-theme="default"] .color-2 {
+  background-color: #4da6ff;
+}
+
+.theme-btn[data-theme="cyberpunk"] .color-1 {
+  background-color: #0f2027;
+}
+
+.theme-btn[data-theme="cyberpunk"] .color-2 {
+  background-color: #ff00cc;
+}
+
+.theme-btn[data-theme="christmas"] .color-1 {
+  background-color: #40385f;
+}
+
+.theme-btn[data-theme="christmas"] .color-2 {
+  background-color: #c62828;
+}
+
+.theme-btn[data-theme="minimalistic"] .color-1 {
+  background-color: #f7f7f7;
+}
+
+.theme-btn[data-theme="minimalistic"] .color-2 {
+  background-color: #1976d2;
+}
+
+.theme-btn[data-theme="minimalistic"] .color-1,
+.theme-btn[data-theme="minimalistic"] .color-2 {
+  border-color: #e0e0e0;
+}
+
+.theme-btn[data-theme="gold"] .color-1 {
+  background-color: #000;
+}
+
+.theme-btn[data-theme="gold"] .color-2 {
+  background-color: #ffd800;
+}
 
 
 .group-selection {
-  padding: 10px 18px; 
-  border-top: 1px solid #444; 
+  padding: 10px 18px;
+  border-top: 1px solid #444;
   margin-top: 8px;
 }
 
@@ -1472,22 +1498,32 @@ body.theme-gold .file-link:hover {
 .group-options {
   display: flex;
   flex-direction: column;
-  gap: 8px; 
-}
-
-.group-option {
-  display: flex;
-  align-items: center;
-}
-
-.group-option label {
-  cursor: pointer;
-  margin-left: 8px;
-  width: 100%;
+  gap: 8px;
 }
 
 .group-option input[type="radio"] {
-  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.group-option label {
+  display: block;
+  padding: 8px 12px;
+  background-color: #3a3a50;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+  width: 100%;
+  text-align: center;
+  margin-left: 0;
+}
+
+
+.group-option input[type="radio"]:checked+label {
+  background-color: #46465c;
+  border: 2px solid #a0a0ff;
+  color: #fff;
 }
 
 #menu li {

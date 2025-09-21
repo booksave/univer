@@ -1,4 +1,4 @@
-const CACHE_NAME = 'univer-app-v3';
+const CACHE_NAME = 'univer-app-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,8 +7,9 @@ const urlsToCache = [
   '/schedule.json',
   '/schedule2.json', 
   '/schedule3.json',
+  '/schedule4.json',
   '/public/umkd.json',
-  '/images/icons/icon-192x192.png'
+  '/images/favicon_io/android-chrome-192x192.png'
 ];
 
 self.addEventListener('install', event => {

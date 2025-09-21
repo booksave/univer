@@ -28,7 +28,7 @@
                     <span class="burger"></span>
                     <span class="burger"></span>
                 </button>
-                <h1>Univer</h1>
+                <h1 id="page-heading">Univer</h1>
             </div>
             <div class="header-right">
                 <span id="current-week">Сейчас: ...</span>
@@ -39,22 +39,27 @@
                 </ul>
 
                 <div class="group-selection">
-                    <h4>Выберите группу:</h4>
+                    <h4>Группа:</h4>
                     <div class="group-options">
 
                         <div class="group-option">
                             <input type="radio" id="group-1" name="group" value="schedule.json" checked>
-                            <label for="group-1">СИБ-24-2с 1-п</label>
+                            <label for="group-1">СИБ-24-2с 1п</label>
                         </div>
 
                         <div class="group-option">
-                            <input type="radio" id="group-1" name="group" value="schedule2.json">
-                            <label for="group-1">СИБ-24-2с 2-п</label>
+                            <input type="radio" id="group-2" name="group" value="schedule2.json">
+                            <label for="group-2">СИБ-24-2с 2п</label>
                         </div>
 
                         <div class="group-option">
-                            <input type="radio" id="group-1" name="group" value="schedule3.json">
-                            <label for="group-1">АРХ-22-2</label>
+                            <input type="radio" id="group-3" name="group" value="schedule3.json">
+                            <label for="group-3">АРХ-22-2</label>
+                        </div>
+
+                        <div class="group-option">
+                            <input type="radio" id="group-4" name="group" value="schedule4.json">
+                            <label for="group-4">ВТ-24-3с</label>
                         </div>
 
                     </div>
@@ -75,7 +80,7 @@
 
     <div id="umkd-section" class="content-section hidden">
         <header>
-            <h1>УМКД | на 15.09</h1>
+            <h1>СИБ-24-2с | на 15.09</h1>
         </header>
         <main id="umkd-container"></main>
     </div>
@@ -149,7 +154,7 @@
     </div>
 
     <footer>
-        <p>© Univer | 1.2.2</p>
+        <p>© Univer | 1.2.3</p>
     </footer>
 
     <script src="script.js"></script>
